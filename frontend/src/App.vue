@@ -1,21 +1,27 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'</script>
 
 <template>
-  <img id="logo" alt="Wails logo" src="./assets/images/logo-universal.png"/>
-  <HelloWorld/>
+  <ToolHomePage
+    v-if="currentPage === 'home'"
+    @open-profit-margin-tool="openProfitMarginTool"
+  />
+  <ProfitMarginPage
+    v-else-if="currentPage === 'profit-margin'"
+    @back="backToHome"
+  />
 </template>
 
-<style>
-#logo {
-  display: block;
-  width: 50%;
-  height: 50%;
-  margin: auto;
-  padding: 10% 0 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-origin: content-box;
+<script setup>
+import { ref } from 'vue'
+import ToolHomePage from './pages/tool-home-page.vue'
+import ProfitMarginPage from './pages/profit-margin-page.vue'
+
+const currentPage = ref('home')
+
+const openProfitMarginTool = () => {
+  currentPage.value = 'profit-margin'
 }
-</style>
+
+const backToHome = () => {
+  currentPage.value = 'home'
+}
+</script>

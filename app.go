@@ -1,6 +1,7 @@
 package main
 
 import (
+	"NianGua_RateTool/service"
 	"context"
 	"fmt"
 )
@@ -9,6 +10,9 @@ import (
 type App struct {
 	ctx context.Context
 }
+
+type ProfitMarginPayload = service.ProfitMarginPayload
+type ProfitMarginResult = service.ProfitMarginResult
 
 // NewApp creates a new App application struct
 func NewApp() *App {
@@ -24,4 +28,8 @@ func (a *App) startup(ctx context.Context) {
 // Greet returns a greeting for the given name
 func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
+}
+
+func (a *App) CalculateProfitMargin(payload ProfitMarginPayload) ProfitMarginResult {
+	return service.CalculateProfitMargin(payload)
 }
