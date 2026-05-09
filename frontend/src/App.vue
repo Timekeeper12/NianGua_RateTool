@@ -12,8 +12,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import ToolHomePage from './pages/tool-home-page.vue'
-import ProfitMarginPage from './pages/profit-margin-page.vue'
+import ToolHomePage from './views/tool-home-page.vue'
+import ProfitMarginPage from './views/profit-margin-page.vue'
 
 const currentPage = ref('home')
 
