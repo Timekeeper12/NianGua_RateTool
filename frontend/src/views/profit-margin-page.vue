@@ -26,16 +26,16 @@
               <el-form-item label="品类采购数量">
                 <el-input-number v-model="form.purchaseQuantity" :min="0" :step="1" controls-position="right" class="full-input" />
               </el-form-item>
-              <el-form-item label="快递费">
+              <el-form-item label="快递费(3只内)">
                 <el-input-number v-model="form.expressFee" :min="0" :step="0.01" :precision="2" controls-position="right" class="full-input" />
               </el-form-item>
-              <el-form-item label="包装盒单价">
+              <el-form-item label="快递盒费用">
                 <el-input-number v-model="form.boxUnitPrice" :min="0" :step="0.01" :precision="2" controls-position="right" class="full-input" />
               </el-form-item>
-              <el-form-item label="气泡袋单价">
+              <el-form-item label="气柱袋费用">
                 <el-input-number v-model="form.bubbleBagUnitPrice" :min="0" :step="0.01" :precision="2" controls-position="right" class="full-input" />
               </el-form-item>
-              <el-form-item label="标签等杂项单价">
+              <el-form-item label="标签等杂项费用">
                 <el-input-number v-model="form.miscUnitPrice" :min="0" :step="0.01" :precision="2" controls-position="right" class="full-input" />
               </el-form-item>
               <el-form-item label="销售单价">
@@ -55,22 +55,20 @@
             </template>
 
             <div class="stats-group">
-              <h3>单只拆分成本</h3>
-              <el-statistic title="采购单只成本" :value="calculated.unitPurchaseCost" prefix="¥" />
-              <el-statistic title="快递分摊单只" :value="calculated.unitExpressCost" prefix="¥" />
-              <el-statistic title="包材杂项单只" :value="calculated.unitPackageCost" prefix="¥" />
-              <el-statistic title="单只总成本" :value="calculated.unitTotalCost" prefix="¥" />
+              <h3>单次发出成本拆解</h3>
+              <el-statistic title="采购单只成本" :value="calculated.unitPurchaseCost" prefix="¥" :precision="2" />
+              <el-statistic title="包材总费用" :value="calculated.totalPackageCost" prefix="¥" :precision="2" />
+              <el-statistic title="快递总费用" :value="calculated.totalExpressCost" prefix="¥" :precision="2" />
             </div>
 
             <el-divider />
 
             <div class="stats-group">
               <h3>利润与利润率</h3>
-              <el-statistic title="单只利润" :value="calculated.unitProfit" prefix="¥" />
-              <el-statistic title="单只利润率" :value="calculated.unitProfitRate" suffix="%" />
-              <el-statistic title="销售总额" :value="calculated.totalRevenue" prefix="¥" />
-              <el-statistic title="总利润" :value="calculated.totalProfit" prefix="¥" />
-              <el-statistic title="总利润率" :value="calculated.totalProfitRate" suffix="%" />
+              <el-statistic title="单次发出总成本" :value="calculated.shipmentTotalCost" prefix="¥" :precision="2" />
+              <el-statistic title="销售总额" :value="calculated.totalRevenue" prefix="¥" :precision="2" />
+              <el-statistic title="单次发出利润" :value="calculated.shipmentProfit" prefix="¥" :precision="2" />
+              <el-statistic title="单次发出利润率" :value="calculated.shipmentProfitRate" suffix="%" :precision="2" />
             </div>
           </el-card>
         </el-col>
@@ -109,14 +107,13 @@ const form = reactive({
 
 const createEmptyCalculated = () => ({
   unitPurchaseCost: 0,
-  unitExpressCost: 0,
   unitPackageCost: 0,
-  unitTotalCost: 0,
-  unitProfit: 0,
-  unitProfitRate: 0,
+  totalPackageCost: 0,
+  totalExpressCost: 0,
+  shipmentTotalCost: 0,
   totalRevenue: 0,
-  totalProfit: 0,
-  totalProfitRate: 0
+  shipmentProfit: 0,
+  shipmentProfitRate: 0
 })
 
 const calculated = reactive(createEmptyCalculated())
@@ -129,14 +126,12 @@ const toNumber = (value) => {
 const applyCalculatedResult = (result) => {
   Object.assign(calculated, {
     unitPurchaseCost: toNumber(result?.unitPurchaseCost),
-    unitExpressCost: toNumber(result?.unitExpressCost),
-    unitPackageCost: toNumber(result?.unitPackageCost),
-    unitTotalCost: toNumber(result?.unitTotalCost),
-    unitProfit: toNumber(result?.unitProfit),
-    unitProfitRate: toNumber(result?.unitProfitRate),
+    totalPackageCost: toNumber(result?.totalPackageCost),
+    totalExpressCost: toNumber(result?.totalExpressCost),
+    shipmentTotalCost: toNumber(result?.shipmentTotalCost),
     totalRevenue: toNumber(result?.totalRevenue),
-    totalProfit: toNumber(result?.totalProfit),
-    totalProfitRate: toNumber(result?.totalProfitRate)
+    shipmentProfit: toNumber(result?.shipmentProfit),
+    shipmentProfitRate: toNumber(result?.shipmentProfitRate)
   })
 }
 

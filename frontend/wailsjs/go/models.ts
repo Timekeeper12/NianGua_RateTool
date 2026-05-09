@@ -28,14 +28,13 @@ export namespace service {
 	}
 	export class ProfitMarginResult {
 	    unitPurchaseCost: number;
-	    unitExpressCost: number;
 	    unitPackageCost: number;
-	    unitTotalCost: number;
-	    unitProfit: number;
-	    unitProfitRate: number;
+	    totalPackageCost: number;
+	    totalExpressCost: number;
+	    shipmentTotalCost: number;
 	    totalRevenue: number;
-	    totalProfit: number;
-	    totalProfitRate: number;
+	    shipmentProfit: number;
+	    shipmentProfitRate: number;
 	
 	    static createFrom(source: any = {}) {
 	        return new ProfitMarginResult(source);
@@ -44,14 +43,13 @@ export namespace service {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.unitPurchaseCost = source["unitPurchaseCost"];
-	        this.unitExpressCost = source["unitExpressCost"];
 	        this.unitPackageCost = source["unitPackageCost"];
-	        this.unitTotalCost = source["unitTotalCost"];
-	        this.unitProfit = source["unitProfit"];
-	        this.unitProfitRate = source["unitProfitRate"];
+	        this.totalPackageCost = source["totalPackageCost"];
+	        this.totalExpressCost = source["totalExpressCost"];
+	        this.shipmentTotalCost = source["shipmentTotalCost"];
 	        this.totalRevenue = source["totalRevenue"];
-	        this.totalProfit = source["totalProfit"];
-	        this.totalProfitRate = source["totalProfitRate"];
+	        this.shipmentProfit = source["shipmentProfit"];
+	        this.shipmentProfitRate = source["shipmentProfitRate"];
 	    }
 	}
 
